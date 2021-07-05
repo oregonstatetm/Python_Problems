@@ -10,23 +10,20 @@ class Solution(object):
     def searchInsert(self, nums, target):
         arrayLength=len(nums)
         midpoint=arrayLength/2
-        print("Length",arrayLength)
-        print("Midpoint",midpoint)
-        print("Target",target)
-        print("MidValue",nums[midpoint])
-        print(nums)
 
         for i in range(arrayLength):
             print(i,"Mid:",midpoint)
-            if(nums[midpoint]==target):
-                return midpoint # Target found
-            elif((nums[midpoint]<target) and (nums[midpoint+1]>target)):
-                return midpoint+1 # Target not in array, expected location found
-            elif((nums[midpoint]<target) and midpoint+1==arrayLength):
-                return midpoint+1 # Target not in array
-            elif((nums[midpoint]>target) and midpoint==0):
+            if(nums[midpoint]==target): # Target found
+                return midpoint 
+            elif((nums[midpoint]<target) and midpoint+1==arrayLength): # Target out of range - high
+                return midpoint+1 
+            elif((nums[midpoint]>target) and midpoint==0): # Target out of range - low
                 return 0
+            elif((nums[midpoint]<target) and (nums[midpoint+1]>target)): # Target not in array, expected location found
+                return midpoint+1
             elif(nums[midpoint]>target):
                 midpoint=midpoint/2
-            else:
-                temp=(arrayLength-midpoint)/2+midpoint
+            elif(nums[midpoint]<target):
+                temp=(arrayLength-midpoint)/2
+                midpoint=temp+midpoint
+
